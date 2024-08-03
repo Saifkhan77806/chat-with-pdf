@@ -1,8 +1,11 @@
+import FileUploader from '@/components/FileUploader'
 import React from 'react'
 
 function upload() {
   return (
-    <div>upload</div>
+    <div>
+        <FileUploader />
+    </div>
   )
 }
 
