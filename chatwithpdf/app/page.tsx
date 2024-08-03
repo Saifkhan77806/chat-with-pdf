@@ -1,47 +1,8 @@
-import {
-  BrainCogIcon,
-  EyeIcon,
-  GlobeIcon,
-  MonitorSmartphoneIcon,
-  ServerCogIcon,
-  ZapIcon
-} from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import Link from "next/link";
 import Image from "next/image";
-const features = [
-  {
-    name: "share pdf document",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, corporis.",
-    icon: BrainCogIcon
-  },
-  {
-    name: "share pdf document",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, corporis.",
-    icon: EyeIcon
-  },
-  {
-    name: "share pdf document",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, corporis.",
-    icon: GlobeIcon
-  },
-  {
-    name: "share pdf document",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, corporis.",
-    icon: MonitorSmartphoneIcon
-  },
-  {
-    name: "share pdf document",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, corporis.",
-    icon: ServerCogIcon
-  },
-  {
-    name: "share pdf document",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, corporis.",
-    icon: ZapIcon
-  }
-]
+
 
 export default function Home() {
 
@@ -64,7 +25,7 @@ export default function Home() {
           Lorem ipsum dolor, sit amet consectetur <span className="text-indigo-600"> chat with pdf</span>  adipisicing elit. Lorem ipsum dolor sit amet.
           </p>
           <Button asChild className="mt-7">
-            <Link href="signin">Get started</Link>
+            <Link href="dashboard">Get started</Link>
           </Button>
       </div>
       <div className="relative overflow-hidden pt-16">
@@ -80,6 +41,7 @@ export default function Home() {
             <div className="absolute bottom-0 -inset-x-32 bg-gradient-to-t from-white/95 pt-[5%]"></div>
           </div>
         </div>
+      
       </div>
     </div>
   </main>
