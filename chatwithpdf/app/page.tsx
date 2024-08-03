@@ -6,10 +6,10 @@ import {
   ServerCogIcon,
   ZapIcon
 } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 import Link from "next/link";
-
-
+import Image from "next/image";
 const features = [
   {
     name: "share pdf document",
@@ -66,6 +66,20 @@ export default function Home() {
           <Button asChild className="mt-7">
             <Link href="signin">Get started</Link>
           </Button>
+      </div>
+      <div className="relative overflow-hidden pt-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <Image 
+          alt="app screenshot"
+          src="https://pdf.ai/ogimage.jpg"
+          width={2432}
+          height={1442}
+          className="mb-[-0%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
+          />
+          <div aria-hidden="true" className="relative">
+            <div className="absolute bottom-0 -inset-x-32 bg-gradient-to-t from-white/95 pt-[5%]"></div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
