@@ -2,13 +2,27 @@
 import {useDropzone} from 'react-dropzone'
 import React, {useCallback} from 'react'
 import { CircleArrowDown, RocketIcon } from 'lucide-react';
+import useUpload from '@/hooks/useUpload';
 
 
 function FileUploader() {
-    const onDrop = useCallback((acceptedFiles:File[]) => {
+    const {progress, status, fieldId, handleUpload} = useUpload()
+
+
+    const onDrop = useCallback(async(acceptedFiles:File[]) => {
         console.log(acceptedFiles)
+        const file = acceptedFiles[0]
+
+        if(file){
+            await handleUpload(file)
+        }else{
+
+        }
       }, [])
-      const {getRootProps, getInputProps, isDragActive, isFocused, isDragAccept} = useDropzone({onDrop})
+      const {getRootProps, getInputProps, isDragActive, isFocused, isDragAccept} = useDropzone({onDrop, accept: {
+        "application/pdf": [".pdf"]
+      }
+    })
 
 
   return (
@@ -25,12 +39,12 @@ function FileUploader() {
             isDragActive ?
             <>
             <RocketIcon className='h-20 w-20 animate-ping'/>
-            <p>Drop the files here ...</p>
+            <p>Drop the files here ...</p>1
             </>  
             :
             <>
             <CircleArrowDown className='h-20 w-20 animate-bounce' />
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <p>Drag n drop some files here, or click to select files</p>
             </>
         }
     </div>
