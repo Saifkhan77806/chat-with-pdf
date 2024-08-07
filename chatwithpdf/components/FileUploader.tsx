@@ -1,13 +1,24 @@
 'use client';
 import {useDropzone} from 'react-dropzone'
-import React, {useCallback} from 'react'
-import { CircleArrowDown, RocketIcon } from 'lucide-react';
-import useUpload from '@/hooks/useUpload';
+import React, {useCallback, useEffect} from 'react'
+import { CheckCheckIcon, CircleArrowDown, HammerIcon, Key, RocketIcon, SaveIcon } from 'lucide-react';
+import useUpload, { statusText } from '@/hooks/useUpload';
+import { useRouter } from 'next/navigation';
 
 
 function FileUploader() {
     const {progress, status, fieldId, handleUpload} = useUpload()
 
+    const router = useRouter();
+
+    useEffect(()=>{
+      if(fieldId){
+        router.push(`/dashboard/files/${fieldId}`);
+      }
+    },[fieldId,router])
+
+    console.log(progress)
+    console.log(status)
 
     const onDrop = useCallback(async(acceptedFiles:File[]) => {
         console.log(acceptedFiles)
@@ -19,18 +30,55 @@ function FileUploader() {
 
         }
       }, [])
+
+
+      const statusIcon: {
+        [Key in statusText]: JSX.Element;
+      } = {
+        [statusText.uploading]:(
+          <RocketIcon className='h-20 w-20 text-indigo-600'/>
+        ),
+        [statusText.uploaded]:(
+          <CheckCheckIcon className='h-20 w-20 text-indigo-600'/>
+        ),
+        [statusText.saving]:(
+          <SaveIcon className='h-20 w-20 text-indigo-600'/>
+        ),
+        [statusText.generating]:(
+          <HammerIcon className='h-20 w-20 text-indigo-600'/>
+        ),
+      }
+
       const {getRootProps, getInputProps, isDragActive, isFocused, isDragAccept} = useDropzone({onDrop, accept: {
         "application/pdf": [".pdf"]
       }
     })
 
+    const uploadProgress = progress != null && progress > 0 && progress <= 300
 
   return (
     <>
     <div className='flex flex-col gap-4 items-center max-w-7xl mx-auto-'>
         {/* loading tommorrow */}
+        {
+          uploadProgress && (
+            <div className='mt-32 flex flex-col justify-center items-center gap-5'>
+              <div>
+                {status===statusText.uploading && <RocketIcon className='h-20 text-center animate-ping w-20 text-indigo-600'/>}
+                {status===statusText.uploaded &&  <CheckCheckIcon className='h-20 text-center  animate-ping w-20 text-indigo-600'/>}
+                {status===statusText.saving &&  <SaveIcon className='h-20 text-center  animate-ping w-20 text-indigo-600'/>}
+                {status===statusText.generating && <HammerIcon className='h-20 text-center  animate-ping w-20 text-indigo-600'/>}
+                <br />
+               <p className='text-center ml-[-28]'>
+                 {status}
+                </p>
+              </div>
+            
+            </div>
+          )
+        }
     </div>
-    <div {...getRootProps()}
+    {!uploadProgress && (<div {...getRootProps()}
     className={`p-10 border-2 border-dashed mt-10 w-[90%] border-indigo-600 text-indigo-600 rounded-lg h-96 flex items-center justify-center mx-auto ${isFocused || isDragAccept ? "bg-indigo-300" : "bg-indigo-100"}`}
     >
     <input {...getInputProps()} />
@@ -48,7 +96,7 @@ function FileUploader() {
             </>
         }
     </div>
-    </div>
+    </div>)}
     </>    
   )
 }
